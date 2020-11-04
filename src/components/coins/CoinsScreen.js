@@ -1,18 +1,26 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, Text, View, Pressable } from 'react-native'
+import { StyleSheet, Text, View, Pressable, FlatList } from 'react-native'
 import { useGetCoins } from '../hooks/useGetCoins'
+import { CoinsItem } from './CoinsItem'
+import colors from '../../res/colors'
+
 export const CoinsScreen = ({ navigation }) => {
     const { coins, loading } = useGetCoins()
-    console.log('{ coins, loading }',{ coins, loading });
+    console.log('{ coins, loading }', coins);
     const handlePess = () => {
         navigation.navigate('CoinDetailScreen')
     }
-    if(loading){
+    if (loading) {
         return <Text>Cargando...</Text>
     }
     return (
         <View style={styles.container}>
             <Text style={styles.titleText}>CoinsScreen </Text>
+            <FlatList
+                data={coins}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => <CoinsItem item={item} />}
+            />
             <Pressable style={styles.btn} onPress={handlePess}>
                 <Text style={styles.btnText}>Ir a detail</Text>
             </Pressable>
@@ -23,7 +31,7 @@ export const CoinsScreen = ({ navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'red'
+        backgroundColor: colors.charade
     },
     titleText: {
         color: 'white',
