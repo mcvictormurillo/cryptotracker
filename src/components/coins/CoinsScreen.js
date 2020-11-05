@@ -7,23 +7,22 @@ import colors from '../../res/colors'
 export const CoinsScreen = ({ navigation }) => {
     const { coins, loading } = useGetCoins()
     console.log('{ coins, loading }', coins);
-    const handlePess = () => {
-        navigation.navigate('CoinDetailScreen')
+    const handlePess = (item) => {
+        navigation.navigate('CoinDetailScreen', {
+            coin: item
+        })
     }
     if (loading) {
         return <Text>Cargando...</Text>
     }
     return (
         <View style={styles.container}>
-            <Text style={styles.titleText}>CoinsScreen </Text>
+            {/* <Text style={styles.titleText}>CoinsScreen </Text> */}
             <FlatList
                 data={coins}
                 keyExtractor={(item) => item.id}
-                renderItem={({ item }) => <CoinsItem item={item} />}
+                renderItem={({ item }) => <CoinsItem item={item} onPress={() => handlePess(item)} />}
             />
-            <Pressable style={styles.btn} onPress={handlePess}>
-                <Text style={styles.btnText}>Ir a detail</Text>
-            </Pressable>
         </View>
     )
 }

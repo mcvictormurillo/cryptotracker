@@ -1,8 +1,8 @@
 import React from 'react'
-import { StyleSheet, Text, View, Image } from 'react-native'
+import { StyleSheet, Text, View, Image, Pressable } from 'react-native'
 import colors from '../../res/colors'
 
-export function CoinsItem({ item }) {
+export function CoinsItem({ item, onPress }) {
 
     const getImgArrow = () => {
         if (item.percent_change_1h > 0) {
@@ -12,7 +12,7 @@ export function CoinsItem({ item }) {
         }
     }
     return (
-        <View style={styles.container}>
+        <Pressable style={styles.container} onPress={onPress}>
             <View style={styles.row}>
                 <Text style={styles.symbolText}>{item.symbol}</Text>
                 <Text style={styles.nameText}>{item.name}</Text>
@@ -23,7 +23,7 @@ export function CoinsItem({ item }) {
                 <Image style={{ width: 20, height: 20 }} source={getImgArrow()} />
 
             </View>
-        </View>
+        </Pressable>
     )
 }
 
@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
         padding: 16,
         justifyContent: 'space-between',
         alignItems: 'center',
-        borderColor:colors.zircon,
-        borderBottomWidth:1
+        borderColor: colors.zircon,
+        borderBottomWidth: 1
     },
     row: {
         flexDirection: 'row',
