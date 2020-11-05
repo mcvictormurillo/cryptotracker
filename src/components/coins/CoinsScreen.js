@@ -3,10 +3,13 @@ import { StyleSheet, Text, View, Pressable, FlatList } from 'react-native'
 import { useGetCoins } from '../hooks/useGetCoins'
 import { CoinsItem } from './CoinsItem'
 import colors from '../../res/colors'
+import { CoinSearch } from './CoinSearch'
 
 export const CoinsScreen = ({ navigation }) => {
     const { coins, loading } = useGetCoins()
-    console.log('{ coins, loading }', coins);
+    const [query, setQuery] = useState('')
+    const [results, setResults] = useState([])
+    //console.log('{ coins, loading }', coins);
     const handlePess = (item) => {
         navigation.navigate('CoinDetailScreen', {
             coin: item
@@ -15,11 +18,18 @@ export const CoinsScreen = ({ navigation }) => {
     if (loading) {
         return <Text>Cargando...</Text>
     }
+    const handleSearch = (query) => {
+        setQuery(query)
+        const lista = coins.filter(coin => {
+            return coin.name.toLowerCase().includes(query.toLowerCase()) || coin.symbol.toLowerCase().includes(query.toLowerCase())
+        })
+        setResults(lista)
+    }
     return (
         <View style={styles.container}>
-            {/* <Text style={styles.titleText}>CoinsScreen </Text> */}
+            <CoinSearch onChange={handleSearch} />
             <FlatList
-                data={coins}
+                data={query ? results : coins}
                 keyExtractor={(item) => item.id}
                 renderItem={({ item }) => <CoinsItem item={item} onPress={() => handlePess(item)} />}
             />
