@@ -1,10 +1,12 @@
 import React, { useEffect } from 'react'
 import { StyleSheet, Text, View, Image, SectionList } from 'react-native'
 import colors from '../../res/colors'
+import useGetMarkets from '../hooks/useGetMarkets'
 
 export function CoinDetailScreen(props) {
     console.log('route', props.route.params.coin)
     const { coin } = props.route.params
+    const { data, loading, error } = useGetMarkets()
     useEffect(() => {
         props.navigation.setOptions({ title: coin.symbol })
     }, [])
@@ -86,6 +88,7 @@ const styles = StyleSheet.create({
         fontSize: 14,
         color: '#fff',
         fontWeight: 'bold',
+        padding: 8,
 
     }
 })
