@@ -6,8 +6,10 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Image, StatusBar } from 'react-native';
 import colors from './src/res/colors'
 import { FavoritesStack } from './src/components/favorites/FavoritesStack';
+import Home from './src/ejemplo/src/screens/Profile'
 const Tabs = createBottomTabNavigator()
 export default App = () => {
+
   return (
     <>
       <StatusBar backgroundColor={colors.blackPearl}/>
