@@ -4,7 +4,7 @@ class Storage {
     static instance = new Storage()
     store = async (key, value) => {
         try {
-            await AsyncStorage.setItem(key, JSON.stringify(value))
+            await AsyncStorage.setItem(key, value)
             return true
         } catch (error) {
             console.log('storage store', error);
@@ -12,9 +12,9 @@ class Storage {
         }
     }
 
-    multiGet = async () => {
+    multiGet = async (keys) => {
         try {
-            const data = await AsyncStorage.multiGet(key)
+            const data = await AsyncStorage.multiGet(keys)
             return data
         } catch (error) {
             console.log('storage multiGet', error);
